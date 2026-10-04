@@ -1,0 +1,667 @@
+/*
+ * Author       : sahanashree.vs.2024.aiml1
+ * Generated on : 04-Oct-2026 15:15:56
+ * Version      : 1.0
+ */
+ application "Insurance Claim Request & Processing Management"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form Claim_Request_Form
+		{
+			success message = "Data Added Successfully!"
+			Claimant_Details
+			(
+				type = section
+				displayname = "Claimant Details "
+				visibility = true
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Claimant_Name
+			(
+    			type = name
+				displayname = "Claimant Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Claimant_Type
+			(
+				type = radiobuttons
+				displayname = "Claimant Type"
+				maxchar = 100
+				values = {"Policy holder","Nominee","Third Party"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Policy_Number
+			(
+    			type = text
+				displayname = "Policy Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Contact_Details
+			(
+				type = section
+				displayname = "Contact Details"
+				visibility = true
+	 			row = 2
+	 			column = 0   
+				width = medium
+			)
+			Email_Address
+			(
+    			type = email
+				displayname = "Email Address"
+				maxchar = 80
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Contact_Number
+			(
+    			type = phonenumber
+				displayname = "Contact Number"
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Residential_Address
+			(
+    			type = address
+				displayname = "Residential Address"
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 2
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Claim_Details
+			(
+				type = section
+				displayname = "Claim Details"
+				visibility = true
+	 			row = 3
+	 			column = 0   
+				width = medium
+			)
+			must have Claim_Type
+			(
+				type = picklist
+				displayname = "Claim Type"
+				maxchar = 100
+				values = {"Motor Insurance","Health Insurance","Life Insurance","Property Insurance","Travel Insurance"}
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			must have Date_of_incident1
+			(
+    			type = date
+				displayname = "Date Of Incident"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			must have Claim_Amount_Requested
+			(
+				type = number
+				displayname = "Claim Amount Requested"
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Supporting_Documents_Available
+			(
+				type = list	
+				displayname = "Supporting Documents Available"
+				values = {"Photographs","Police FIR copy","Repair Estimate","Medical Records","Identity Proof","Policy Document","Other"}
+				height = 60px
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Incident_Description
+			(
+    			type = textarea
+				displayname = "Incident Description"
+				height = 100px
+	 			row = 3
+	 			column = 1   
+				width = medium
+			)
+			Scheduling_Declaration
+			(
+				type = section
+				displayname = "Scheduling & Declaration"
+				visibility = true
+	 			row = 4
+	 			column = 0   
+				width = medium
+			)
+			Preferred_Callback_Time
+			(
+    			type = time
+				displayname = "Preferred Callback Time"
+				timedisplayoptions = "hh:mm:ss" 
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+			must have Declaration_Of_Authenticity
+			(
+				type = checkboxes	
+				displayname = "Declaration Of Authenticity"
+				values = {"I declare that the information provided is true and accurate"}
+	 			row = 4
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list Claim_Request_Form_Report
+		{
+			displayName = "Claim_Request_Form Report"
+			show all rows from Claim_Request_Form    
+			(
+				Claimant_Name  as "Claimant Name"
+				Claimant_Type as "Claimant Type"
+				Policy_Number as "Policy Number"
+				Email_Address as "Email Address"
+				Contact_Number as "Contact Number"
+				(
+					displayformat = plainnumber 
+				)
+				Residential_Address  as "Residential Address"
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Claim_Type as "Claim Type"
+				Date_of_incident1 as "Date Of Incident"
+				Claim_Amount_Requested as "Claim Amount Requested"
+				Supporting_Documents_Available as "Supporting Documents Available"
+				Incident_Description as "Incident Description"
+				Preferred_Callback_Time as "Preferred Callback Time"
+				Declaration_Of_Authenticity as "Declaration Of Authenticity"
+			)
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			Validate_Claim_Amount as "Validate Claim Amount"
+			{
+				type =  form
+				form = Claim_Request_Form
+
+				record event = on add
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Claim_Amount_Requested <= 0)
+										{
+											alert "Claim Amount Requested must be greater than 0.";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			Validate_Incident_Date as "Validate Incident Date"
+			{
+				type =  form
+				form = Claim_Request_Form
+
+				record event = on add
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Date_of_incident1 > zoho.currentdate)
+										{
+											alert "Date of Incident cannot be a future date.";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			Send_Claim_Acknowledgemen as "Send Claim Acknowledgement"
+			{
+				type =  form
+				form = Claim_Request_Form
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						sendmail
+						(
+							from : "zoho.adminuserid"
+							to : Email_Address
+							subject : "Insurance Claim Request Received - Reference #${ID}"
+							message : "<div>Dear ${Claimant_Name}, <br></div><div><br></div><div>Thank you for submitting your insurance claim request.<br></div><div><br></div><div>We have successfully received your claim.<br></div><div><br></div><div>Claim Reference: ${ID}<br></div><div>Policy Number: ${Policy_Number}<br></div><div>Claim Type: ${Claim_Type}<br></div><div>Claim Amount Requested: ${Claim_Amount_Requested}<br></div><div><br></div><div>Our claims processing team will review your request and contact you at your preferred callback time.<br></div><div><br></div><div>Please keep the above claim reference number for future communication.<br></div><div><br></div><div>Thank you,<br></div><div>Claims Processing Team<br></div><div>Insurance Claim Request &amp; Processing Management<br></div>"
+						)
+					}
+				}
+
+			}
+		}
+
+
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+	customize
+	{
+		icon
+		{
+			text = "ICR"
+			background color = "theme"
+			foreground color = "#ffffff"
+		}
+	}
+
+	web
+	{
+		forms
+		{
+			form Claim_Request_Form
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report Claim_Request_Form_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Claimant_Name as "Claimant Name"
+								Claimant_Type as "Claimant Type"
+								Policy_Number as "Policy Number"
+								Email_Address as "Email Address"
+								Contact_Number as "Contact Number"
+								Residential_Address as "Residential Address"
+								Claim_Type as "Claim Type"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Claimant_Name as "Claimant Name"
+								Claimant_Type as "Claimant Type"
+								Policy_Number as "Policy Number"
+								Email_Address as "Email Address"
+								Contact_Number as "Contact Number"
+								Residential_Address as "Residential Address"
+								Claim_Type as "Claim Type"
+								Date_of_incident1 as "Date Of Incident"
+								Claim_Amount_Requested as "Claim Amount Requested"
+								Supporting_Documents_Available as "Supporting Documents Available"
+								Incident_Description as "Incident Description"
+								Preferred_Callback_Time as "Preferred Callback Time"
+								Declaration_Of_Authenticity as "Declaration Of Authenticity"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Claim_Request_Form
+				{
+					displayname = "Claim_Request_Form"
+					icon = "tech-desktop"
+					form  Claim_Request_Form
+					{
+						icon = "tech-desktop"
+					}
+					report Claim_Request_Form_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+				}
+			}
+		}
+		customize
+		{
+			font = "lato"
+			color options
+			{
+				color = "11"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Claim_Request_Form
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Claim_Request_Form
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = amethyst
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	
+}
